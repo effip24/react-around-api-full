@@ -8,12 +8,36 @@ const auth = require("./middleware/auth");
 const { login, createUser } = require("./controllers/users");
 const { requestLogger, errorLogger } = require("./middleware/Logger");
 
+const allowedCors = [
+  "www.effip24.students.nomoreparties.site",
+  "effip24.students.nomoreparties.site",
+  "api.effip24.students.nomoreparties.site",
+  "localhost:3000",
+];
+
 mongoose.connect("mongodb://localhost:27017/aroundb");
 const { PORT = 3000 } = process.env;
 const app = express();
 
 app.use(express.json());
 app.use(helmet());
+
+app.use((req, res, next) => {
+  const { origin } = req.headers;
+  const { method } = req;
+  const DEFAULT_ALLOWED_METHODS = "GET,HEAD,PUT,PATCH,POST,DELETE";
+
+  if (allowedCors.includes(origin)) {
+    res.header("Access-Control-Allow-Origin", "*");
+  }
+
+  if (method === "OPTIONS") {
+    // allowing cross-domain requests of any type (default)
+    res.header("Access-Control-Allow-Methods", DEFAULT_ALLOWED_METHODS);
+  }
+
+  next();
+});
 
 app.use(requestLogger);
 app.post("/signin", login);
