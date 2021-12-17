@@ -37,7 +37,7 @@ function App() {
   useEffect(() => {
     if (storedToken) {
       auth
-        .checkToken(token)
+        .checkToken(storedToken)
         .then(() => {
           setLoggedIn(true);
           history.push("/");
@@ -74,10 +74,6 @@ function App() {
       .catch((err) => {
         console.log(`There was a problem getting data from the server ${err}`);
       });
-  }, []);
-
-  useEffect(() => {
-    checkIfLoggedIn();
   }, []);
 
   useEffect(() => {
@@ -221,7 +217,7 @@ function App() {
       .login(email, password)
       .then((data) => {
         setLoggedIn(true);
-        localStorage.setItem("token", data.token);
+        setStoredToken(localStorage.setItem("token", data.token));
         localStorage.setItem("email", email);
         history.push("/");
       })
