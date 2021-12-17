@@ -50,7 +50,7 @@ class Auth {
   }
 }
 const auth = new Auth({
-  baseUrl: "https://register.nomoreparties.co",
+  baseUrl: "https://api.effip24.students.nomoreparties.site",
 });
 
 export default auth;

@@ -13,7 +13,7 @@ import Login from "./Login";
 import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
-import api from "../utils/api.js";
+import Api from "../utils/api.js";
 import auth from "../utils/auth";
 
 function App() {
@@ -29,16 +29,25 @@ function App() {
   const [infoToolTipSuccess, setInfoToolTipSuccess] = useState(false);
   const [infoToolTipMessage, setInfoToolTipMessage] = useState("");
   const [currentUser, setCurrentUser] = useState({});
-  const [storedToken, setStoredToken] = useState("");
+  const [storedToken, setStoredToken] = useState(localStorage.getItem("token"));
   const [loggedIn, setLoggedIn] = useState(false);
 
   const history = useHistory();
+
+  const api = new Api({
+    baseUrl: "https://api.effip24.students.nomoreparties.site",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${storedToken}`,
+    },
+  });
 
   useEffect(() => {
     if (storedToken) {
       auth
         .checkToken(storedToken)
         .then(() => {
+          console.log("here");
           setLoggedIn(true);
           history.push("/");
         })
@@ -219,6 +228,7 @@ function App() {
         setLoggedIn(true);
         setStoredToken(localStorage.setItem("token", data.token));
         localStorage.setItem("email", email);
+        console.log(storedToken);
         history.push("/");
       })
       .catch((err) => {
