@@ -1,14 +1,14 @@
-
-
 # react-around-api-full
 
 The API of "Around the U.S." with authorization and registration handled by the back-end server.
 This repository contains the full API of "Around the U.S." project that features user authorization and user registration and handles cards and users.
 
 ## Frontend
+
 ```
 Link to the website https://www.effip24.students.nomoreparties.site/
 ```
+
 #### Technologies and Techniques
 
 <p align="left"> 
@@ -31,19 +31,22 @@ Link to the website https://www.effip24.students.nomoreparties.site/
 ```
 
 #### To run the website locally
+
 ```
   git clone https://github.com/effip24/react-around-api-full.git
 ```
+
 ```
   cd react-around-api/frontend
 ```
+
 ```
   npm install
 ```
+
 ```
   npm run start
 ```
-
 
 ## Backend
 
@@ -60,32 +63,32 @@ Link to the website https://www.effip24.students.nomoreparties.site/
 ```
   git clone https://github.com/effip24/react-around-api-full.git
 ```
+
 ```
   cd react-around-api/backend
 ```
+
 ```
   npm install
 ```
+
 ```
   npm run start
 ```
-#### Link to the API:  https://api.effip24.students.nomoreparties.site
 
-| end point | Description                |
-| :-------- | :------------------------- |
-| `POST /signin` | authorization |
-| `POST /signup` | registration |
-| `GET /users` | returns all users |
-| `GET /user` | returns specific user |
-| `GET /users/me` | returns logged in user |
-| `PATCH /users/me` | updates user info |
-| `PATCH /users/me/avatar` | updates user's avatar |
-| `GET /cards` | returns all cards |
-| `POST /cards` | creates new card |
-| `DELETE /cards/:cardId` | deletes specific card |
+#### Link to the API: https://api.effip24.students.nomoreparties.site
+
+| end point                     | Description                |
+| :---------------------------- | :------------------------- |
+| `POST /signin`                | authorization              |
+| `POST /signup`                | registration               |
+| `GET /users`                  | returns all users          |
+| `GET /user`                   | returns specific user      |
+| `GET /users/me`               | returns a logged in user   |
+| `PATCH /users/me`             | updates user info          |
+| `PATCH /users/me/avatar`      | updates user's avatar      |
+| `GET /cards`                  | returns all cards          |
+| `POST /cards`                 | creates new card           |
+| `DELETE /cards/:cardId`       | deletes specific card      |
 | `DELETE /cards/:cardId/likes` | removes a like from a card |
-| `PUT /cards/:cardId/likes` | add a like to a card |
-
-
-
-
+| `PUT /cards/:cardId/likes`    | add a like to a card       |
