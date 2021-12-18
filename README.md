@@ -5,7 +5,7 @@ This repository contains the full API of "Around the U.S." project that features
 
 ## Frontend
 
-### Link to the website https://www.effip24.students.nomoreparties.site/
+#### Link to the website https://www.effip24.students.nomoreparties.site/
 
 #### Technologies and Techniques
 
