@@ -23,11 +23,11 @@ Link to the website https://www.effip24.students.nomoreparties.site/
 </p>
 
 ```
+  BEM, CSS Flexbox and Grid, JavaScript, ReactJS,
+
   The website is fully responsive and has a design at the following breakpoints
 
   1024, 768, 425, 320
-
-  BEM, CSS Flexbox and Grid, JavaScript, ReactJS
 ```
 
 #### To run the website locally
