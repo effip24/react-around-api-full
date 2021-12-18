@@ -21,7 +21,7 @@ router.patch(
       about: Joi.string().required().min(2),
     }),
   }),
-  updateUser
+  updateUser,
 );
 
 router.patch(
@@ -31,7 +31,7 @@ router.patch(
       avatar: Joi.string().required().custom(validateUrl),
     }),
   }),
-  updateUserAvatar
+  updateUserAvatar,
 );
 
 module.exports = router;

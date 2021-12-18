@@ -23,32 +23,37 @@ function App() {
   const [isDeletePlacePopupOpen, setDeletePlacePopupOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+
   const [cards, setCards] = useState([]);
   const [confirmedCardToDelete, setConfirmedCardToDelete] = useState({});
   const [selectedCard, setSelectedCard] = useState({});
+
   const [infoToolTipSuccess, setInfoToolTipSuccess] = useState(false);
   const [infoToolTipMessage, setInfoToolTipMessage] = useState("");
+
   const [currentUser, setCurrentUser] = useState({});
-  const [storedToken, setStoredToken] = useState(localStorage.getItem("token"));
   const [loggedIn, setLoggedIn] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("token"));
 
   const history = useHistory();
 
   const api = new Api({
-    baseUrl: "https://api.effip24.students.nomoreparties.site",
+    baseUrl: "http://localhost:3000",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${storedToken}`,
+      authorization: `Bearer ${token}`,
     },
   });
 
+  // checking if user already logged in
   useEffect(() => {
-    if (storedToken) {
+    if (token) {
+      setLoggedIn(true);
+
       auth
-        .checkToken(storedToken)
-        .then(() => {
-          console.log("here");
-          setLoggedIn(true);
+        .checkToken(token)
+        .then((user) => {
+          setCurrentUser(user.data);
           history.push("/");
         })
         .catch((err) => {
@@ -58,33 +63,21 @@ function App() {
             console.log("401 — The provided token is invalid ");
           }
         });
+
+      api
+        .getInitialCards()
+        .then((cards) => {
+          setCards(cards.data.reverse());
+        })
+        .catch((err) => {
+          console.log(`There was a problem getting data from the server ${err}`);
+        });
     } else {
       history.push("/signin");
     }
-  }, []);
+  }, [token]);
 
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((user) => {
-        setCurrentUser(user);
-      })
-      .catch((err) => {
-        console.log(`There was a problem getting data from the server ${err}`);
-      });
-  }, []);
-
-  useEffect(() => {
-    api
-      .getInitialCards()
-      .then((data) => {
-        setCards(data);
-      })
-      .catch((err) => {
-        console.log(`There was a problem getting data from the server ${err}`);
-      });
-  }, []);
-
+  // esc listener for popups
   useEffect(() => {
     const closeByEscape = (e) => {
       if (e.key === "Escape") {
@@ -127,7 +120,7 @@ function App() {
     api
       .saveUserInfo(userInfo.name, userInfo.about)
       .then((user) => {
-        setCurrentUser(user);
+        setCurrentUser(user.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -143,7 +136,7 @@ function App() {
     api
       .setUserAvatar(avatar)
       .then((user) => {
-        setCurrentUser(user);
+        setCurrentUser(user.data);
         closeAllPopups();
       })
       .catch((err) => {
@@ -159,7 +152,8 @@ function App() {
     api
       .saveCard(card)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.data, ...cards]);
+
         closeAllPopups();
       })
       .catch((err) => {
@@ -172,13 +166,13 @@ function App() {
 
   const handleCardLike = (card) => {
     // Check one more time if this card was already liked
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
 
     // Send a request to the API and getting the updated card data
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+        setCards((state) => state.map((c) => (c._id === card._id ? newCard.data : c)));
       })
       .catch((err) => {
         console.log(`There was a problem liking this place ${err}`);
@@ -226,9 +220,9 @@ function App() {
       .login(email, password)
       .then((data) => {
         setLoggedIn(true);
-        setStoredToken(localStorage.setItem("token", data.token));
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
         localStorage.setItem("email", email);
-        console.log(storedToken);
         history.push("/");
       })
       .catch((err) => {
@@ -244,8 +238,10 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.setItem("token", "");
-    localStorage.setItem("email", "");
+    setLoggedIn(false);
+    setToken("");
+    localStorage.removeItem("token", "");
+    localStorage.removeItem("email", "");
     history.push("/signin");
   };
 

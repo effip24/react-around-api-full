@@ -19,7 +19,7 @@ router.post(
       link: Joi.string().custom(validateUrl),
     }),
   }),
-  createCard
+  createCard,
 );
 router.delete("/cards/:cardId", deleteCard);
 router.delete("/cards/:cardId/likes", dislikeCard);

@@ -50,7 +50,7 @@ class Auth {
   }
 }
 const auth = new Auth({
-  baseUrl: "https://api.effip24.students.nomoreparties.site",
+  baseUrl: "http://localhost:3000",
 });
 
 export default auth;

@@ -20,11 +20,10 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     validate: {
-      validator: (v) =>
-        /[(http|https)://(www.)?a-zA-Z0-9.-]+\.[a-z]{2,6}(\/[a-zA-Z0-9.-~:/?%#[\]@!$&'()*+,;=]*)?/.test(
-          v
-        ),
-      message: "please enter a valid URL",
+      validator(v) {
+        return validator.isURL(v);
+      },
+      message: "Invalid URL",
     },
     default: "https://pictures.s3.yandex.net/resources/avatar_1604080799.jpg",
   },
@@ -48,7 +47,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.statics.findUserByCredentials = function findUserByCredentials(
   email,
-  password
+  password,
 ) {
   return this.findOne({ email })
     .select("+password")
