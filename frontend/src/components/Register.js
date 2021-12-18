@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { Link, withRouter } from "react-router-dom";
 import useFormAndValidation from "../utils/FormValidator.js";
 
-const Register = ({ onRegister }) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+const Register = ({ onRegister, isSending }) => {
+  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
 
   useEffect(() => {
     resetForm();
@@ -58,7 +58,7 @@ const Register = ({ onRegister }) => {
           </div>
           <div className="authenticate__submit-container">
             <button className={`authenticate__submit ${!isValid ? "authenticate__submit_inactive" : ""}`} type="submit">
-              Sign up
+              {isSending ? "registering, please wait..." : "Register"}
             </button>
             <Link className="authenticate__link" to="/signin">
               Already a member? Log in here!

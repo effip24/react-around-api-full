@@ -91,12 +91,15 @@ function App() {
   const handleEditAvatarClick = () => {
     setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
   };
+
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(!isEditProfilePopupOpen);
   };
+
   const handleAddPlaceClick = () => {
     setAddPlacePopupOpen(!isAddPlacePopupOpen);
   };
+
   const handleCardClick = (card) => {
     setSelectedCard(card);
   };
@@ -196,6 +199,7 @@ function App() {
   };
 
   const handleRegister = (email, password) => {
+    setIsSending(true);
     auth
       .register(email, password)
       .then((data) => {
@@ -211,11 +215,13 @@ function App() {
         setInfoToolTipSuccess(false);
       })
       .finally(() => {
+        setIsSending(false);
         setIsInfoToolTipOpen(true);
       });
   };
 
   const handleLogin = (email, password) => {
+    setIsSending(true);
     auth
       .login(email, password)
       .then((data) => {
@@ -234,6 +240,9 @@ function App() {
         setIsInfoToolTipOpen(true);
         setInfoToolTipSuccess(false);
         setInfoToolTipMessage("Oops, something went wrong! Please try again.");
+      })
+      .finally(() => {
+        setIsSending(false);
       });
   };
 
@@ -257,11 +266,11 @@ function App() {
         />
         <Switch>
           <Route path="/signup">
-            <Register onRegister={handleRegister} />
+            <Register onRegister={handleRegister} isSending={isSending} />
           </Route>
 
           <Route path="/signin">
-            <Login onLogin={handleLogin} />
+            <Login onLogin={handleLogin} isSending={isSending} />
           </Route>
 
           <ProtectedRoute path="/" loggedIn={loggedIn}>
