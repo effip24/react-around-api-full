@@ -13,7 +13,7 @@ const users = require("./routes/users");
 const auth = require("./middleware/auth");
 const { login, createUser } = require("./controllers/users");
 
-const { requestLogger, errorLogger } = require("./logs/Logger");
+const { requestLogger, errorLogger } = require("./middleware/Logger");
 const { validateUrl } = require("./utils/validateUrl");
 
 require("dotenv").config();
