@@ -1,5 +1,6 @@
 const Card = require("../models/card");
 const NotFoundError = require("../utils/errors/NotFoundError");
+const BadRequest = require("../utils/errors/BadRequest");
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
@@ -17,12 +18,22 @@ module.exports.createCard = (req, res, next) => {
 };
 
 module.exports.deleteCard = (req, res, next) => {
-  Card.findOneAndRemove({ _id: req.params.cardId })
+  Card.findById({ _id: req.params.cardId })
     .then((card) => {
       if (!card) {
         throw new NotFoundError("No card was found with the given id");
+      } else if (card.owner._id.toString() !== req.user._id) {
+        throw new BadRequest("forbidden request");
       }
-      res.status(200).send({ data: card });
+
+      Card.findOneAndRemove({ _id: req.params.cardId })
+        .then((deletedCard) => {
+          if (!deletedCard) {
+            throw new NotFoundError("No card was found with the given id");
+          }
+          res.status(200).send({ data: deletedCard });
+        })
+        .catch(next);
     })
     .catch(next);
 };

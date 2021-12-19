@@ -11,7 +11,15 @@ const { validateUrl } = require("../utils/validateUrl");
 
 router.get("/users/me", getCurrentUser);
 router.get("/users", getUsers);
-router.get("/users/:userId", getUser);
+router.get(
+  "/users/:userId",
+  celebrate({
+    params: Joi.object().keys({
+      userId: Joi.string().length(24),
+    }),
+  }),
+  getUser,
+);
 
 router.patch(
   "/users/me",

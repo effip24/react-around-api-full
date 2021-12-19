@@ -38,7 +38,7 @@ function App() {
   const history = useHistory();
 
   const api = new Api({
-    baseUrl: "https://api.effip24.students.nomoreparties.site",
+    baseUrl: "http://127.0.0.1:3000",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,

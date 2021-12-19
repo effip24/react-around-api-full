@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs"); // importing bcrypt
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const NotFoundError = require("../utils/errors/NotFoundError");
+const ConflictError = require("../utils/errors/ConflictError");
 
 module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -34,24 +35,33 @@ module.exports.getUsers = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const {
-    name,
-    about,
-    avatar,
-    email,
-    password,
+    name, about, avatar, email, password,
   } = req.body;
 
-  bcrypt.hash(password, 10).then((hash) => {
-    User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
+  User.findOne({ email })
+    .then((user) => {
+      if (user) {
+        throw new ConflictError("Email already exists");
+      }
+      return bcrypt.hash(password, 10);
     })
-      .then((user) => res.status(200).send({ data: user }))
-      .catch(next);
-  });
+    .then((hash) => {
+      User.create({
+        name,
+        about,
+        avatar,
+        email,
+        password: hash,
+      })
+        .then((user) => res.status(200).send({
+          name: user.name,
+          about: user.about,
+          avatar: user.avatar,
+          email: user.email,
+        }))
+        .catch(next);
+    })
+    .catch(next);
 };
 
 module.exports.login = (req, res, next) => {
