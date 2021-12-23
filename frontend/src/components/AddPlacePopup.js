@@ -3,12 +3,14 @@ import PopupWithForm from "./PopupWithForm.js";
 import useFormAndValidation from "../utils/FormValidator.js";
 
 const AddPlacePopup = ({ isSending, isOpen, onClose, onAddPlaceSubmit }) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, resetForm, setValues, handleFileUpload, uploadState, setUploadState } =
+    useFormAndValidation();
 
   useEffect(() => {
     resetForm();
     setValues({ name: "", link: "" });
-  }, [isOpen, resetForm, setValues]);
+    setUploadState("Upload");
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,35 +28,41 @@ const AddPlacePopup = ({ isSending, isOpen, onClose, onAddPlaceSubmit }) => {
       onSubmit={handleSubmit}
       submitButtonState={isValid ? "" : "popup__submit_inactive"}
     >
-      <input
-        id="title-input"
-        required
-        minLength="1"
-        maxLength="30"
-        name="name"
-        type={isOpen ? "text" : "reset"}
-        placeholder="Title"
-        className={`popup__input  ${errors.name ? "popup__input_type_error" : ""}`}
-        value={values.name || ""}
-        onChange={handleChange}
-      />
-      <span id="title-input-error" className={`popup__input-error ${errors.name ? "popup__input-error_active" : ""}`}>
-        {errors.name}
-      </span>
+      <div className="popup__container">
+        <div className="popup__input-container">
+          <input
+            required
+            minLength="1"
+            maxLength="30"
+            name="name"
+            type="text"
+            placeholder="Title"
+            className={`popup__input  ${errors.name ? "popup__input_type_error" : ""}`}
+            value={values.name || ""}
+            onChange={handleChange}
+          />
+          <span className={`popup__input-error ${errors.name ? "popup__input-error_active" : ""}`}>{errors.name}</span>
+        </div>
 
-      <input
-        id="link-input"
-        required
-        name="link"
-        type={isOpen ? "url" : "reset"}
-        placeholder="Image link"
-        className={`popup__input  ${errors.link ? "popup__input_type_error" : ""}`}
-        value={values.link || ""}
-        onChange={handleChange}
-      />
-      <span id="title-input-error" className={`popup__input-error ${errors.link ? "popup__input-error_active" : ""}`}>
-        {errors.link}
-      </span>
+        <div className="popup__uploader">
+          <input
+            required
+            name="link"
+            type="url"
+            placeholder="Image link"
+            className={`popup__input  ${errors.link ? "popup__input_type_error" : ""}`}
+            value={values.link || ""}
+            onChange={handleChange}
+          />
+          <p className="popup__lable">OR</p>
+          <input name="link" id="place-file" type="file" hidden accept="image/*" onChange={handleFileUpload} />
+          <label className="popup__input popup__input_type_file" htmlFor="place-file">
+            {uploadState}
+          </label>
+          <span className={`popup__input-error ${errors.file ? "popup__input-error_active" : ""}`}>{errors.file}</span>
+        </div>
+        <span className={`popup__input-error ${errors.link ? "popup__input-error_active" : ""}`}>{errors.link}</span>
+      </div>
     </PopupWithForm>
   );
 };

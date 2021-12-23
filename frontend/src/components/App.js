@@ -14,7 +14,7 @@ import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
 import Api from "../utils/api.js";
-import auth from "../utils/auth";
+import auth from "../utils/auth.js";
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -118,7 +118,7 @@ function App() {
     setIsInfoToolTipOpen(false);
   };
 
-  const handleUpdateUser = (userInfo) => {
+  const handleUserUpdate = (userInfo) => {
     setIsSending(true);
     api
       .saveUserInfo(userInfo.name, userInfo.about)
@@ -134,7 +134,7 @@ function App() {
       });
   };
 
-  const handleUpdateAvatar = (avatar) => {
+  const handleAvatarUpdate = (avatar) => {
     setIsSending(true);
     api
       .setUserAvatar(avatar)
@@ -144,6 +144,10 @@ function App() {
       })
       .catch((err) => {
         console.log(`There was a problem saving the avatar on the server ${err}`);
+        setEditAvatarPopupOpen(false);
+        setInfoToolTipMessage("Oops, something went wrong! Please try again.");
+        setInfoToolTipSuccess(false);
+        setIsInfoToolTipOpen(true);
       })
       .finally(() => {
         setIsSending(false);
@@ -265,12 +269,9 @@ function App() {
           onClose={closeAllPopups}
         />
         <Switch>
+          <Route path="/signin">{!token && <Login onLogin={handleLogin} isSending={isSending} />}</Route>
           <Route path="/signup">
             <Register onRegister={handleRegister} isSending={isSending} />
-          </Route>
-
-          <Route path="/signin">
-            <Login onLogin={handleLogin} isSending={isSending} />
           </Route>
 
           <ProtectedRoute path="/" loggedIn={loggedIn}>
@@ -288,13 +289,13 @@ function App() {
               isSending={isSending}
               isOpen={isEditProfilePopupOpen}
               onClose={closeAllPopups}
-              onUpdateUser={handleUpdateUser}
+              onUserUpdate={handleUserUpdate}
             />
             <EditAvatarPopup
               isSending={isSending}
               isOpen={isEditAvatarPopupOpen}
               onClose={closeAllPopups}
-              onUpdateAvatar={handleUpdateAvatar}
+              onAvatarUpdate={handleAvatarUpdate}
             />
             <AddPlacePopup
               isSending={isSending}

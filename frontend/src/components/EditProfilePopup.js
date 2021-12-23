@@ -3,7 +3,7 @@ import PopupWithForm from "./PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import useFormAndValidation from "../utils/FormValidator.js";
 
-const EditProfilePopup = ({ isSending, isOpen, onClose, onUpdateUser }) => {
+const EditProfilePopup = ({ isSending, isOpen, onClose, onUserUpdate }) => {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
 
@@ -15,7 +15,7 @@ const EditProfilePopup = ({ isSending, isOpen, onClose, onUpdateUser }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onUpdateUser(values);
+    onUserUpdate(values);
   };
 
   return (
@@ -29,7 +29,6 @@ const EditProfilePopup = ({ isSending, isOpen, onClose, onUpdateUser }) => {
       submitButtonState={isValid ? "" : "popup__submit_inactive"}
     >
       <input
-        id="name-input"
         required
         minLength="2"
         maxLength="40"
@@ -37,14 +36,11 @@ const EditProfilePopup = ({ isSending, isOpen, onClose, onUpdateUser }) => {
         name="name"
         type="text"
         placeholder="name"
-        className={`popup__input ${errors.name ? "popup__input_type_error" : ""}`}
+        className={`popup__input popup__input_type_text ${errors.name ? "popup__input_type_error" : ""}`}
         onChange={handleChange}
       />
-      <span id="name-input-error" className={`popup__input-error ${errors.name ? "popup__input-error_active" : ""}`}>
-        {errors.name}
-      </span>
+      <span className={`popup__input-error ${errors.name ? "popup__input-error_active" : ""}`}>{errors.name}</span>
       <input
-        id="occupation-input"
         required
         minLength="2"
         maxLength="200"
@@ -52,13 +48,10 @@ const EditProfilePopup = ({ isSending, isOpen, onClose, onUpdateUser }) => {
         name="about"
         type="text"
         placeholder="About me"
-        className={`popup__input ${errors.occupation ? "popup__input_type_error" : ""}`}
+        className={`popup__input popup__input_type_text ${errors.occupation ? "popup__input_type_error" : ""}`}
         onChange={handleChange}
       />
-      <span
-        id="title-input-error"
-        className={`popup__input-error ${errors.occupation ? "popup__input-error_active" : ""}`}
-      >
+      <span className={`popup__input-error ${errors.occupation ? "popup__input-error_active" : ""}`}>
         {errors.occupation}
       </span>
     </PopupWithForm>

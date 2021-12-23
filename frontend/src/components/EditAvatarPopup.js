@@ -2,18 +2,20 @@ import React, { useEffect } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import useFormAndValidation from "../utils/FormValidator.js";
 
-const EditAvatarPopup = ({ isSending, isOpen, onClose, onUpdateAvatar }) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormAndValidation();
+const EditAvatarPopup = ({ isSending, isOpen, onClose, onAvatarUpdate }) => {
+  const { values, handleChange, errors, isValid, resetForm, setValues, handleFileUpload, uploadState, setUploadState } =
+    useFormAndValidation();
 
   useEffect(() => {
     resetForm();
     setValues({ link: "" });
-  }, [isOpen, resetForm, setValues]);
+    setUploadState("Upload");
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onUpdateAvatar({
+    onAvatarUpdate({
       avatar: values.link,
     });
   };
@@ -28,19 +30,30 @@ const EditAvatarPopup = ({ isSending, isOpen, onClose, onUpdateAvatar }) => {
       onSubmit={handleSubmit}
       submitButtonState={isValid ? "" : "popup__submit_inactive"}
     >
-      <input
-        id="url-input"
-        required
-        name="link"
-        type={isOpen ? "url" : "reset"}
-        placeholder="Image link"
-        className={`popup__input ${errors.link ? "popup__input_type_error" : ""}`}
-        value={values.link || ""}
-        onChange={handleChange}
-      />
-      <span id="name-input-error" className={`popup__input-error  ${errors.link ? "popup__input-error_active" : ""}`}>
-        {errors.link}
-      </span>
+      <div className="popup__container">
+        <div className="popup__uploader">
+          <div className="popup__input-container">
+            <input
+              required
+              name="link"
+              type="url"
+              avatarholder="Image link"
+              className={`popup__input ${errors.link ? "popup__input_type_error" : ""}`}
+              value={values.link || ""}
+              onChange={handleChange}
+            />
+            <span className={`popup__input-error ${errors.link ? "popup__input-error_active" : ""}`}>
+              {errors.link}
+            </span>
+          </div>
+          <p className="popup__lable">OR</p>
+          <input name="link" id="avatar-file" type="file" hidden accept="image/*" onChange={handleFileUpload} />
+          <label className="popup__input popup__input_type_file" htmlFor="avatar-file">
+            {uploadState}
+          </label>
+          <span className={`popup__input-error ${errors.file ? "popup__input-error_active" : ""}`}>{errors.file}</span>
+        </div>
+      </div>
     </PopupWithForm>
   );
 };
