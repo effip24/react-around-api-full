@@ -28,32 +28,39 @@ const EditProfilePopup = ({ isSending, isOpen, onClose, onUserUpdate }) => {
       isOpen={isOpen}
       submitButtonState={isValid ? "" : "popup__submit_inactive"}
     >
-      <input
-        required
-        minLength="2"
-        maxLength="40"
-        value={values.name || ""}
-        name="name"
-        type="text"
-        placeholder="name"
-        className={`popup__input popup__input_type_text ${errors.name ? "popup__input_type_error" : ""}`}
-        onChange={handleChange}
-      />
-      <span className={`popup__input-error ${errors.name ? "popup__input-error_active" : ""}`}>{errors.name}</span>
-      <input
-        required
-        minLength="2"
-        maxLength="200"
-        value={values.about || ""}
-        name="about"
-        type="text"
-        placeholder="About me"
-        className={`popup__input popup__input_type_text ${errors.occupation ? "popup__input_type_error" : ""}`}
-        onChange={handleChange}
-      />
-      <span className={`popup__input-error ${errors.occupation ? "popup__input-error_active" : ""}`}>
-        {errors.occupation}
-      </span>
+      <div className="popup__container">
+        <div className="popup__input-container">
+          <input
+            required
+            minLength="2"
+            maxLength="40"
+            value={values.name || ""}
+            name="name"
+            type="text"
+            placeholder="name"
+            className={`popup__input ${errors.name ? "popup__input_type_error" : ""}`}
+            onChange={handleChange}
+          />
+          <span className={`popup__input-error ${errors.name ? "popup__input-error_active" : ""}`}>{errors.name}</span>
+        </div>
+
+        <div className="popup__input-container">
+          <input
+            required
+            minLength="2"
+            maxLength="200"
+            value={values.about || ""}
+            name="about"
+            type="text"
+            placeholder="About me"
+            className={`popup__input ${errors.about ? "popup__input_type_error" : ""}`}
+            onChange={handleChange}
+          />
+          <span className={`popup__input-error ${errors.about ? "popup__input-error_active" : ""}`}>
+            {errors.about}
+          </span>
+        </div>
+      </div>
     </PopupWithForm>
   );
 };
