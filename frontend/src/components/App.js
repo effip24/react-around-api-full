@@ -48,11 +48,10 @@ function App() {
   // checking if user already logged in
   useEffect(() => {
     if (token) {
-      setLoggedIn(true);
-
       auth
         .checkToken(token)
         .then((user) => {
+          setLoggedIn(true);
           setCurrentUser(user.data);
           history.push("/");
         })
@@ -269,9 +268,9 @@ function App() {
           onClose={closeAllPopups}
         />
         <Switch>
-          <Route path="/signin">{!token && <Login onLogin={handleLogin} isSending={isSending} />}</Route>
+          <Route path="/signin">{!loggedIn && !token && <Login onLogin={handleLogin} isSending={isSending} />}</Route>
           <Route path="/signup">
-            <Register onRegister={handleRegister} isSending={isSending} />
+            {!loggedIn && !token && <Register onRegister={handleRegister} isSending={isSending} />}
           </Route>
 
           <ProtectedRoute path="/" loggedIn={loggedIn}>

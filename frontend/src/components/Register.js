@@ -25,35 +25,39 @@ const Register = ({ onRegister, isSending }) => {
           <div className="authenticate__title-container">
             <h3 className="authenticate__title">Sign up</h3>
             <div className="authenticate__input-container">
-              <input
-                required
-                name="email"
-                type="email"
-                placeholder="Email"
-                className={`authenticate__input ${errors.email ? "authenticate__input_type_error" : ""}`}
-                value={values.email || ""}
-                onChange={handleChange}
-              ></input>
-              <span className={`authenticate__input-error ${errors.email ? "authenticate__input-error_active" : ""}`}>
-                {errors.email}
-              </span>
+              <div className="authenticate__input-wrap">
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  placeholder="Email"
+                  className={`authenticate__input ${errors.email ? "authenticate__input_type_error" : ""}`}
+                  value={values.email || ""}
+                  onChange={handleChange}
+                ></input>
+                <span className={`authenticate__input-error ${errors.email ? "authenticate__input-error_active" : ""}`}>
+                  {errors.email}
+                </span>
+              </div>
 
-              <input
-                required
-                minLength="6"
-                maxLength="30"
-                name="password"
-                type="password"
-                placeholder="password"
-                className={`authenticate__input ${errors.password ? "authenticate__input_type_error" : ""}`}
-                value={values.password || ""}
-                onChange={handleChange}
-              ></input>
-              <span
-                className={`authenticate__input-error ${errors.password ? "authenticate__input-error_active" : ""}`}
-              >
-                {errors.password}
-              </span>
+              <div className="authenticate__input-wrap">
+                <input
+                  required
+                  minLength="6"
+                  maxLength="30"
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  className={`authenticate__input ${errors.password ? "authenticate__input_type_error" : ""}`}
+                  value={values.password || ""}
+                  onChange={handleChange}
+                ></input>
+                <span
+                  className={`authenticate__input-error ${errors.password ? "authenticate__input-error_active" : ""}`}
+                >
+                  {errors.password}
+                </span>
+              </div>
             </div>
           </div>
           <div className="authenticate__submit-container">
