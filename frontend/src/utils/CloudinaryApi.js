@@ -34,5 +34,4 @@ const cloudinaryApi = new CloudinaryApi({
   baseUrl: "https://api.cloudinary.com/v1_1",
 });
 
-
 export default cloudinaryApi;

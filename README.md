@@ -28,6 +28,35 @@ This repository contains the full API of "Around the U.S." project that features
   1024, 768, 425, 320
 ```
 
+## Backend
+
+#### Technologies and Techniques
+
+<p align="left"> 
+ <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="express js" width="40" height="40"/>
+
+<img src="https://cdn.icon-icons.com/icons2/2415/PNG/512/mongodb_plain_wordmark_logo_icon_146423.png" alt="mongoDB" width="40" height="40"/>
+</p>
+
+#### Link to the API: https://api.effip24.students.nomoreparties.site
+
+| end point                     | Description                |
+| :---------------------------- | :------------------------- |
+| `POST /signin`                | authorization              |
+| `POST /signup`                | registration               |
+| `GET /users`                  | returns all users          |
+| `GET /user`                   | returns specific user      |
+| `GET /users/me`               | returns a logged in user   |
+| `PATCH /users/me`             | updates user info          |
+| `PATCH /users/me/avatar`      | updates user's avatar      |
+| `GET /cards`                  | returns all cards          |
+| `POST /cards`                 | creates new card           |
+| `DELETE /cards/:cardId`       | deletes specific card      |
+| `DELETE /cards/:cardId/likes` | removes a like from a card |
+| `PUT /cards/:cardId/likes`    | add a like to a card       |
+
+### To run the project locally
+
 #### To run the website locally
 
 ```
@@ -46,16 +75,6 @@ This repository contains the full API of "Around the U.S." project that features
   npm run start
 ```
 
-## Backend
-
-#### Technologies and Techniques
-
-<p align="left"> 
- <img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Expressjs.png" alt="express js" width="40" height="40"/>
-
-<img src="https://cdn.icon-icons.com/icons2/2415/PNG/512/mongodb_plain_wordmark_logo_icon_146423.png" alt="mongoDB" width="40" height="40"/>
-</p>
-
 #### To run the server
 
 ```
@@ -73,20 +92,3 @@ This repository contains the full API of "Around the U.S." project that features
 ```
   npm run start
 ```
-
-#### Link to the API: https://api.effip24.students.nomoreparties.site
-
-| end point                     | Description                |
-| :---------------------------- | :------------------------- |
-| `POST /signin`                | authorization              |
-| `POST /signup`                | registration               |
-| `GET /users`                  | returns all users          |
-| `GET /user`                   | returns specific user      |
-| `GET /users/me`               | returns a logged in user   |
-| `PATCH /users/me`             | updates user info          |
-| `PATCH /users/me/avatar`      | updates user's avatar      |
-| `GET /cards`                  | returns all cards          |
-| `POST /cards`                 | creates new card           |
-| `DELETE /cards/:cardId`       | deletes specific card      |
-| `DELETE /cards/:cardId/likes` | removes a like from a card |
-| `PUT /cards/:cardId/likes`    | add a like to a card       |

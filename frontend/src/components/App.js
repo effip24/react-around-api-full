@@ -37,6 +37,8 @@ function App() {
 
   const history = useHistory();
 
+  console.log(typeof cards);
+
   const api = new Api({
     baseUrl: "https://api.effip24.students.nomoreparties.site",
     headers: {

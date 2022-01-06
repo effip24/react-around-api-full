@@ -7,6 +7,8 @@ const Card = ({ card, onCardClick, onCardLike, onCardDelete }) => {
   const isLiked = card.likes.some((i) => i === currentUser._id);
   const hide = { display: `${!isOwn ? "none" : ""}` };
 
+  console.log(card);
+
   const handleClick = () => {
     onCardClick(card);
   };
