@@ -5,6 +5,8 @@ This repository contains the full API of "Around the U.S." project that features
 
 ## Frontend
 
+#### Link to the frontend: https://around-react-frontend.herokuapp.com/
+
 #### Technologies and Techniques
 
 <p align="left"> 
