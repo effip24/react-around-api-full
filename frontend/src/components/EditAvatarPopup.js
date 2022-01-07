@@ -34,6 +34,7 @@ const EditAvatarPopup = ({ isSending, isOpen, onClose, onAvatarUpdate }) => {
         <div className="popup__uploader">
           <div className="popup__input-container">
             <input
+            placeholder="image url"
               required
               name="link"
               type="url"

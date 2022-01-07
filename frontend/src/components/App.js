@@ -40,7 +40,7 @@ function App() {
   console.log(typeof cards);
 
   const api = new Api({
-    baseUrl: "https://api.effip24.students.nomoreparties.site",
+    baseUrl: "https://git.heroku.com/around-react-api.git",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,
