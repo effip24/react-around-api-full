@@ -36,7 +36,7 @@ This repository contains the full API of "Around the U.S." project that features
 <img src="https://cdn.icon-icons.com/icons2/2415/PNG/512/mongodb_plain_wordmark_logo_icon_146423.png" alt="mongoDB" width="40" height="40"/>
 </p>
 
-#### Link to the API: https://git.heroku.com/around-react-api.git
+#### Link to the API: https://around-react-api.herokuapp.com/
 
 | end point                     | Description                |
 | :---------------------------- | :------------------------- |
