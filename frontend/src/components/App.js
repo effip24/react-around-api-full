@@ -40,7 +40,7 @@ function App() {
   console.log(typeof cards);
 
   const api = new Api({
-    baseUrl: "https://git.heroku.com/around-react-api.git",
+    baseUrl: "http://localhost:3000",
     headers: {
       "Content-Type": "application/json",
       authorization: `Bearer ${token}`,

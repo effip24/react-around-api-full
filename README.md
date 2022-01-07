@@ -5,8 +5,6 @@ This repository contains the full API of "Around the U.S." project that features
 
 ## Frontend
 
-#### Link to the website https://www.effip24.students.nomoreparties.site/
-
 #### Technologies and Techniques
 
 <p align="left"> 
@@ -57,7 +55,7 @@ This repository contains the full API of "Around the U.S." project that features
 
 ### To run the project locally
 
-#### To run the website locally
+#### run the website locally:
 
 ```
   git clone https://github.com/effip24/react-around-api-full.git
@@ -75,7 +73,7 @@ This repository contains the full API of "Around the U.S." project that features
   npm run start
 ```
 
-#### To run the server
+#### run the server:
 
 ```
   git clone https://github.com/effip24/react-around-api-full.git
